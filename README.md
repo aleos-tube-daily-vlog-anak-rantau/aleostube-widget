@@ -1,82 +1,92 @@
-# aleostube-widget
-aleo-autotranslate.js
-(async function(){
-  const FEED_URL='https://aleos-tube-daily-vlog-anak-rantau.blogspot.com/feeds/posts/default?alt=json&max-results=6';
-  const CHANNEL_ID='UCTHGlP7T12oHv2QHDuw0C3g';
-  const LIBRE_ENDPOINT='https://libretranslate.de/translate';
-  const SERVER_ENDPOINT='https://your-vercel-endpoint.example.com/api/share';
-  const POLL=600000;
-  const MUSIC={
-    ID:'https://example.com/music/indonesia-sample.mp3',
-    US:'https://example.com/music/us-sample.mp3',
-    DEFAULT:'https://example.com/music/global-sample.mp3'
+// Aleo's Tube Auto Widget - Final Version
+(function(){
+  const ytChannel = "UCTHGlP7T12oHv2QHDuw0C3g";
+  const musicList = {
+    "id": "https://example.com/music/indo.mp3",
+    "en": "https://example.com/music/english.mp3",
+    "jp": "https://example.com/music/japan.mp3",
+    "default": "https://example.com/music/default.mp3"
   };
 
-  function log(...x){console.log('[AleoAuto]',...x);}
-  function lang(){return (navigator.language||'en').split('-')[0];}
-  function country(){const l=(navigator.language||'').split('-');return l[1]||'DEFAULT';}
-  const userLang=lang(),userCountry=country();
-
-  // musik latar otomatis
-  const url=MUSIC[userCountry]||MUSIC.DEFAULT;
-  let audio=new Audio(url);audio.loop=true;audio.volume=0.5;
-  audio.play().catch(()=>log('user gesture required'));
-  
-  // pause musik saat video diputar
-  window.onYouTubeIframeAPIReady=function(){
-    new YT.Player('player',{events:{onStateChange:e=>{
-      if(e.data===1)audio.pause();
-      if(e.data===2||e.data===0)audio.play();
-    }}});
-  };
-
-  // translate otomatis isi posting
-  async function translateAll(){
-    try{
-      const nodes=[...document.body.querySelectorAll('*')]
-        .filter(e=>e.childNodes.length===1&&e.childNodes[0].nodeType===3&&e.innerText.trim());
-      for(const n of nodes){
-        const q=n.innerText;
-        const r=await fetch(LIBRE_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({q,source:'auto',target:userLang})});
-        const j=await r.json();
-        if(j.translatedText)n.innerText=j.translatedText;
-      }
-    }catch(e){log('translate error',e);}
+  // 🗣️ Auto translate init
+  function initTranslate(){
+    var gt = document.createElement("script");
+    gt.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+    document.body.appendChild(gt);
+    window.googleTranslateElementInit = function() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'auto',
+        includedLanguages: 'en,id,ms,ja,ko,zh-CN,zh-TW,th,vi,ar,hi,ru,es,fr,de,it,pt,tr',
+        autoDisplay: false
+      }, 'google_translate_element');
+    };
+    const el = document.createElement("div");
+    el.id = "google_translate_element";
+    el.style.display = "none";
+    document.body.appendChild(el);
+    const lang = (navigator.language || 'en').split('-')[0];
+    document.cookie = "googtrans=/auto/" + lang + ";path=/";
   }
 
-  // auto detect post baru + share
-  async function autoShare(){
-    try{
-      const r=await fetch(FEED_URL);
-      const j=await r.json();
-      const posts=j.feed.entry||[];
-      const last=posts[0];
-      const id=last.id.$t;
-      const seen=localStorage.getItem('aleoshare')||'';
-      if(seen!==id){
-        const data={title:last.title.$t,url:last.link.find(l=>l.rel==='alternate').href};
-        await fetch(SERVER_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-        localStorage.setItem('aleoshare',id);
+  // 🎵 Musik sesuai bahasa
+  function playMusic(){
+    const lang = (navigator.language || 'en').split('-')[0];
+    const src = musicList[lang] || musicList.default;
+    const audio = new Audio(src);
+    audio.loop = true;
+    audio.volume = 0.2;
+    audio.id = "aleo_bg_music";
+    document.body.appendChild(audio);
+    audio.play();
+
+    // stop musik saat video diputar
+    const observer = new MutationObserver(()=>{
+      const iframe = document.querySelector("iframe[src*='youtube.com/embed']");
+      if(iframe){
+        audio.pause();
+      } else if(audio.paused){
+        audio.play();
       }
-    }catch(e){log('share fail',e);}
+    });
+    observer.observe(document.body,{childList:true,subtree:true});
   }
 
-  // tampilkan video channel
-  async function showYT(){
-    const res=await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`);
-    const t=await res.text();
-    const v=t.match(/<yt:videoId>(.*?)<\\/yt:videoId>/);
-    if(v){
-      const c=document.createElement('div');
-      c.innerHTML=`<iframe id=\"player\" width=\"300\" height=\"170\" src=\"https://www.youtube.com/embed/${v[1]}?autoplay=0\" allow=\"autoplay;encrypted-media\" allowfullscreen></iframe>`;
-      c.style.position='fixed';c.style.bottom='10px';c.style.right='10px';c.style.zIndex='9999';
-      document.body.appendChild(c);
+  // 📺 Auto explore video dari channel YouTube
+  async function loadYouTube(){
+    try {
+      const res = await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${ytChannel}`);
+      const text = await res.text();
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(text, "text/xml");
+      const latest = xml.querySelector("entry link").getAttribute("href");
+      const iframe = document.createElement("iframe");
+      iframe.src = latest.replace("watch?v=","embed/");
+      iframe.width = "100%";
+      iframe.height = "320";
+      iframe.allowFullscreen = true;
+      iframe.style.border="none";
+      document.body.appendChild(iframe);
+    } catch(e){
+      console.error("[AleoAuto] Gagal ambil video:", e);
     }
   }
 
-  await translateAll();
-  await showYT();
-  await autoShare();
-  setInterval(autoShare,POLL);
+  // 🔁 Auto share (simulasi aman, tidak pakai token)
+  function autoShare(){
+    const title = document.title;
+    const url = window.location.href;
+    const msg = encodeURIComponent(title + " " + url);
+    const fb = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+    const tw = `https://twitter.com/intent/tweet?text=${msg}`;
+    const pin = `https://pinterest.com/pin/create/button/?url=${url}&description=${title}`;
+    console.log("[AleoAutoShare] Sharing:", {fb, tw, pin});
+  }
+
+  // Jalankan semua diam-diam
+  window.addEventListener("load", ()=>{
+    initTranslate();
+    playMusic();
+    loadYouTube();
+    autoShare();
+  });
 })();

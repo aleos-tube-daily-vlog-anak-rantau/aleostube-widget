@@ -1,3 +1,83 @@
+# 🧡 Aleo’s Tube Store — Pro Minimalist Business Edition
+
+**Aleo’s Tube Store** adalah template Blogger profesional dengan gaya minimalis, elegan, dan modern — dirancang khusus untuk bisnis, branding, dan konten kreatif digital.  
+Dibangun dengan kombinasi warna **oranye 🔶 & hitam ⚫**, memberikan kesan **enerjik, berani, dan khas Aleo.**
+
+---
+
+## 🌐 Fitur Utama
+
+- ⚡ **Desain Minimalis & Profesional**
+- 🧩 **Responsif di Semua Perangkat**
+- 🌍 **Auto Translate (Google Translate Integration)**
+- 📊 **Dual Google Analytics Integration (G-71BR09BJ1R & G-2F6SD6VRNM)**
+- 🛍️ **Struktur Siap Branding Bisnis / Store**
+- 🧠 **SEO-Friendly & Fast Loading**
+- 🖼️ **Placeholder Logo & Banner Siap Ganti**
+- 🔒 **Footer Copyright © 2025 Aleo’s Tube Store**
+
+---
+
+## 🧰 Struktur Template
+
+Aleo’s_Tube_Store_Template.xml
+├── <head> → Meta SEO, Analytics, Translate
+├── <header> → Logo + Judul Utama
+├── <nav> → Menu Navigasi
+├── <div class="post"> → Area Konten / Artikel
+└── <footer> → Hak Cipta & Informasi Situs
+
+---
+
+## 🧾 Cara Instalasi di Blogger
+
+1. Masuk ke **Dashboard Blogger → Tema → Edit HTML**
+2. Hapus semua kode lama.
+3. Tempelkan seluruh isi file `Aleo’s_Tube_Store_Template.xml`
+4. Simpan & lihat hasilnya 🎉
+
+---
+
+## 🔄 Sinkronisasi dengan GitHub
+
+Jika kamu ingin menghubungkan template langsung dari GitHub (agar bisa update otomatis):
+
+1. Upload file `Aleo’s_Tube_Store_Template.xml` ke repositori kamu  
+   (misalnya di: `https://github.com/aleos-tube/Aleo’s-Tube-Store-Template`)
+2. Klik file tersebut → **View Raw**
+3. Salin URL Raw-nya (contoh):
+4. Gunakan URL ini untuk sinkronisasi otomatis di Blogger editor.
+
+---
+
+## 🖼️ Placeholder Logo
+
+| Tema | Contoh |
+|------|--------|
+| 🔶 Oranye + Hitam | `https://via.placeholder.com/150x150/FFA500/000000?text=Aleo’s+Tube+Store` |
+| 🔵 Biru + Putih | `https://via.placeholder.com/150x150/007BFF/FFFFFF?text=Aleo’s+Tube+Store` |
+
+Ganti sesuai identitas brand kamu.  
+Kamu juga bisa menambahkan logo asli di folder `/assets/logo/` jika dihosting di GitHub Pages.
+
+---
+
+## 📅 Versi
+**Versi:** 1.0  
+**Dirilis:** November 2025  
+**Dibuat oleh:** [Aleo’s Tube Store](https://aleos-tube.blogspot.com)  
+
+© 2025 Aleo’s Tube Store. All rights reserved.
+
+---
+
+## 💬 Dukungan & Kolaborasi
+Ingin kolaborasi desain, fitur, atau optimasi?  
+Hubungi: **Aleo’s Tube Creative Team**
+
+📧 Email: `contact@aleos-tube.store`  
+🌐 Website: [https://aleos-tube.blogspot.com](https://aleos-tube.blogspot.com)
+
 <div class="separator" style="clear: both;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioNtwKn5NPfqmd5pWFVSaDfPEvEFk3pYP0x_pwHpcWm2NSDKcHLWrrs9nu8FucteWhNIk8jfWcVAfi4vw4Gv25ycDj4cC2mK6pJKonZugcREPQxjaOv9YpL5mIb4NvmKB2FiztMjD7WGvVMdS6xaFyS-r1NHuKe9M102d4aAwE19Eu-LNkWoYZ2PFe2Ql_/s1536/ChatGPT%20Image%2011%20Nov%202025,%2019.27.54.png" style="display: block; padding: 1em 0; text-align: center; "><img alt="" border="0" height="320" data-original-height="1536" data-original-width="1024" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioNtwKn5NPfqmd5pWFVSaDfPEvEFk3pYP0x_pwHpcWm2NSDKcHLWrrs9nu8FucteWhNIk8jfWcVAfi4vw4Gv25ycDj4cC2mK6pJKonZugcREPQxjaOv9YpL5mIb4NvmKB2FiztMjD7WGvVMdS6xaFyS-r1NHuKe9M102d4aAwE19Eu-LNkWoYZ2PFe2Ql_/s320/ChatGPT%20Image%2011%20Nov%202025,%2019.27.54.png"/></a></div> # These are supported funding model platforms
 
 github: # Replace with up to 4 GitHub Sponsors-enabled usernames e.g., [user1, user2]

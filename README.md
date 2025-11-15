@@ -220,3 +220,16 @@ file_path = Path("/mnt/data/Aleos_Tube_Store_Template.xml")
 file_path.write_text(xml_content, encoding="utf-8")
 
 file_path
+---
+
+### 🌐 Terhubung dengan Blog Resmi
+Kode ini disinkronkan langsung dengan blog **[Aleo’s Tube Store](https://aleostube.blogspot.com)**  
+yang menampilkan cerita, vlog, dan komentar dari **Aleo’s Tube Daily Vlog Anak Rantau**.
+
+💬 Sistem komentar Blogger dioptimalkan dan dihubungkan melalui file HTML berikut:
+[`/Aleo's-Tube-Daily-Vlog-Anak-Rantau/comments.html`](https://github.com/aleos-tube-daily-vlog-anak-rantau/Aleo-s--Tube.io/blob/main/Aleo's-Tube-Daily-Vlog-Anak-Rantau/comments.html)
+
+---
+
+> © 2025 Aleo’s Tube Store — Semua hak dilindungi  
+> Dibangun dengan ❤️ oleh komunitas vlog anak rantau.
